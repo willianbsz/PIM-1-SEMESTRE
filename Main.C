@@ -1,10 +1,37 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <locale.h>
+#include <string.h>
 #include <conio.h>
 #include <ctype.h>
-#include <locale.h>
 #define TAM 100
+
+void MostrarTitulo(char titulo[TAM])
+{
+    printf("---------------------------------------------------------------------------- \n");
+    printf(titulo);
+    printf("\n---------------------------------------------------------------------------- \n\n");
+}
+
+struct ModeloDeLogin
+{
+    char usuario[50];
+    char senha[8];
+};
+
+FILE *loginFile;
+
+void Login()
+{
+    struct ModeloDeLogin login;
+
+    MostrarTitulo("Tela de login");
+    printf("Digite o seu usuario: \n");
+    scanf("%s", login.usuario);
+
+    printf("Digite sua senha: \n");
+    scanf("%s", login.senha);
+}
 
 typedef struct Agenda
 {
@@ -14,16 +41,22 @@ typedef struct Agenda
     char mes[2];
 } contatos;
 
-void Incluir(void);
-void Pesquisar(void);
-char AddMais();
-
-static int qtd = 0;
 contatos max[TAM];
 FILE *arq;
 
-/= == == == = Incluir Contatos na Agenda == == == == == = /
-                                                          void Incluir(void)
+char AddMais()
+{
+    char op;
+    do
+    {
+        printf("\n Deseja inserir novos dados? [S ou N]? ");
+        op = getch();
+        printf("\n");
+    } while (op != 's' && op != 'n');
+    return op;
+}
+
+void Incluir(void)
 {
     int cont = 0;
     int retorno;
@@ -54,26 +87,11 @@ FILE *arq;
         }
         cont++;         // enquanto cont for menor 100 adiciona mais um contato
         op = AddMais(); // chama a função que pergunta se deseja inserir novos contatos
-        qtd++;          // acrecenta 1 contato a mais
     }
     fclose(arq); // fecha o arquivo agenda.txt
 }
 
-/= == == == == == == = Adicionar mais Contatos == == == == == == == = /
-                                                                      char AddMais()
-{
-    char op;
-    do
-    {
-        printf("\n Deseja inserir novos dados? [S ou N]? ");
-        op = getch();
-        printf("\n");
-    } while (op != 's' && op != 'n');
-    return op;
-}
-
-/= == == == == == == = Pesquisar contato pelo nome == == == == == == == == == == = /
-                                                                                   void Pesquisar(void)
+void Pesquisar(void)
 {
     int i = 0, retorno = 1, cont = 0; //
     char nome[50], op;                // A variavel nome se refere ao nome a ser pesquisado
@@ -108,8 +126,7 @@ FILE *arq;
     fclose(arq); // fecha o arquivo agenda.txt
 }
 
-/= == == == == == == == == == == Menu == == == == == == == == == == == = /
-                                                                         void menu_treinamento(void)
+void menu_treinamento(void)
 {
     char op; // variavel de opção
     do
@@ -117,7 +134,7 @@ FILE *arq;
         system("cls"); // limpar tela
         printf("\n\n\t\tAGENDAMENTO DE TREINAMENTO\n");
         printf("\n 1 - Incluir\n 2 - Pesquisar\n");
-        printf(" 3 - Voltar\n\n");
+        printf(" 3 - Sair\n\n");
         op = getch();
         switch (op)
         {
@@ -129,7 +146,6 @@ FILE *arq;
             break;
         case '3':
             system("cls");
-            main();
             break;
         default:
             printf("\a Digite uma opção valida\n");
@@ -138,20 +154,10 @@ FILE *arq;
     } while (op);
 }
 
-/= == == == == == Função Principal == == == == == == == == /
-                                                               int main()
+int main()
 {
     int var;
     setlocale(LC_ALL, "Portuguese");
-    printf("\n\n\t\tAGENDAMENTO DE TREINAMENTO\n\n");
-    printf("\tVerifique as funções disponiveis no menu.\n");
-    printf("\tUtilize os numeros para selecionar a opção desejada.\n");
-    printf("\tPressione qualquer tecla para continuar ou\n\tEspaço para sair do programa agora.\n\t");
-    var = getch();
-    if (var == 32)
-    {
-        exit(0);
-    }
     menu_treinamento();
     system("pause");
 }
