@@ -39,31 +39,6 @@ void MostrarTitulo(const char titulo[TAM])
     PularLinha();
 }
 
-// ATLETAS
-struct ATLETA
-{
-    char nome[NOMETAM];
-    int idade;
-    Modalidade modalidade;
-    Pais pais;
-    Equipe equipe;
-    Alojamento alojamento;
-    Medalha medalhas[TAM];
-} Atletas[TAM];
-
-// MEDALHA
-struct Medalha
-{
-    TipoMedalha tipo;
-};
-
-enum TipoMedalha
-{
-    Ouro,
-    Prata,
-    Bronze
-};
-
 // MODALIDADE
 struct Modalidade
 {
@@ -82,6 +57,13 @@ struct Equipe
     char nome[NOMETAM];
 } Equipes[TAM];
 
+// LOCAL
+struct Local
+{
+    char rua[NOMETAM];
+    int numero;
+} Localis[TAM];
+
 // ALOJAMENTO
 struct Alojamento
 {
@@ -89,12 +71,30 @@ struct Alojamento
     Local local;
 } Alojamentos[TAM];
 
-// LOCAL
-struct Local
+// MEDALHA
+enum TipoMedalha
 {
-    char rua[NOMETAM];
-    int numero;
-} Localis[TAM];
+    Ouro,
+    Prata,
+    Bronze
+};
+
+struct Medalha
+{
+    TipoMedalha tipo;
+};
+
+// ATLETAS
+struct ATLETA
+{
+    char nome[NOMETAM];
+    int idade;
+    Modalidade modalidade;
+    Pais pais;
+    Equipe equipe;
+    Alojamento alojamento;
+    Medalha medalhas[TAM];
+} Atletas[TAM];
 
 // FUNCIONARIO
 struct Funcionario
