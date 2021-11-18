@@ -348,7 +348,103 @@ struct Local
 {
     char rua[NOMETAM];
     int numero;
-} Localis[TAM];
+} Locais[TAM];
+
+FILE *ArquivoLocal;
+
+const char NomeArquivoLocal[] = "local.txt";
+void MostrarMenuCadastroLocal()
+{
+    MostrarTitulo("                        Cadastro de locais                        ");
+    ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "r");
+
+    int encontrado = 1;
+    int i = 0;
+
+    printf("Locais:\n");
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Locais[i], sizeof(Local), 1, ArquivoLocal);
+
+        if (encontrado == 0)
+        {
+            if (i == 0)
+                printf("**Sem Locais cadastrados**");
+
+            break;
+        }
+        else
+        {
+            printf("%d - ", i + 1);
+            printf(Locais[i].rua);
+            printf("%d ", Locais[i].numero);
+            PularLinha();
+            i++;
+            continue;
+        }
+    }
+
+    LinhaDivisoria();
+    PularLinha();
+    printf("1 - Cadastrar\n");
+    printf("2 - Editar\n");
+    printf("3 - Voltar\n");
+    printf("0 - Sair\n");
+}
+void CadastrarLocais()
+{
+    ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "a");
+
+    printf(" Digite o nome do Local: ");
+    gets(Locais[0].rua);
+    PularLinha();
+
+    printf(" Digite o numero do Local: ");
+    scanf("%d", Locais[0].numero);
+
+    int retorno = fwrite(&Locais[0], sizeof(Local), 1, ArquivoLocal);
+
+    printf("retorno");
+    printf("%d", retorno);
+    if (retorno == 1)
+    {
+        printf("\n Gravacao ok! ");
+        getch();
+        LimparTela();
+        fclose(ArquivoLocal);
+    }
+}
+
+void MenuCadastroLocal()
+{
+    int resposta;
+    bool tentarNovamente = false;
+
+    do
+    {
+        LimparTela();
+        MostrarMenuCadastroLocal();
+        scanf("%d", &resposta);
+        switch (resposta)
+        {
+        case 1:
+            CadastrarLocais();
+            break;
+        case 2:
+            printf("Editando Locais");
+            break;
+        case 3:
+            printf("Voltando");
+            break;
+        case 0:
+            FecharPrograma();
+            break;
+        default:
+            printf("Opção inválida, tente novamente");
+            break;
+        }
+    } while (tentarNovamente);
+}
 
 // ALOJAMENTO
 struct Alojamento
@@ -356,6 +452,97 @@ struct Alojamento
     char nome[NOMETAM];
     Local local;
 } Alojamentos[TAM];
+
+FILE *ArquivoAlojamento;
+
+const char NomeArquivoAlojamento[] = "alojamento.txt";
+void MostrarMenuCadastroAlojamento()
+{
+    MostrarTitulo("                        Cadastro de Alojamento                        ");
+    ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "r");
+
+    int encontrado = 1;
+    int i = 0;
+
+    printf("Alojamentos:\n");
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Alojamentos[i], sizeof(Alojamento), 1, ArquivoAlojamento);
+
+        if (encontrado == 0)
+        {
+            if (i == 0)
+                printf("**Sem alojamentos cadastrados**");
+
+            break;
+        }
+        else
+        {
+            printf("%d - ", i + 1);
+            printf(Alojamentos[i].nome);
+            PularLinha();
+            i++;
+            continue;
+        }
+    }
+
+    LinhaDivisoria();
+    PularLinha();
+    printf("1 - Cadastrar\n");
+    printf("2 - Editar\n");
+    printf("3 - Voltar\n");
+    printf("0 - Sair\n");
+}
+void CadastrarAlojamento()
+{
+    ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "a");
+
+    printf(" Digite o nome d]o Alojamento: ");
+    gets(Alojamentos[0].nome);
+
+    int retorno = fwrite(&Alojamentos[0], sizeof(Alojamento), 1, ArquivoAlojamento);
+
+    printf("retorno");
+    printf("%d", retorno);
+    if (retorno == 1)
+    {
+        printf("\n Gravacao ok! ");
+        getch();
+        LimparTela();
+        fclose(ArquivoAlojamento);
+    }
+}
+
+void MenuCadastroAlojamento()
+{
+    int resposta;
+    bool tentarNovamente = false;
+
+    do
+    {
+        LimparTela();
+        MostrarMenuCadastroAlojamento();
+        scanf("%d", &resposta);
+        switch (resposta)
+        {
+        case 1:
+            CadastrarAlojamento();
+            break;
+        case 2:
+            printf("Editando modalidade");
+            break;
+        case 3:
+            printf("Voltando");
+            break;
+        case 0:
+            FecharPrograma();
+            break;
+        default:
+            printf("Opção inválida, tente novamente");
+            break;
+        }
+    } while (tentarNovamente);
+}
 
 // MEDALHA
 enum TipoMedalha
@@ -554,7 +741,9 @@ void MostrarMenuCadastros()
     printf("6 - Cadastro de modalidade\n");
     printf("7 - Cadastro de paises\n");
     printf("8 - Cadastrar equipe\n");
-    printf("9 - Voltar\n");
+    printf("9 - Cadastrar local\n");
+    printf("10 - Cadastrar alojamento\n");
+    printf("12 - Voltar\n");
     printf("0 - Sair\n");
 }
 
@@ -586,6 +775,12 @@ void MenuCadastros()
             break;
         case 8:
             MenuCadastroEquipe();
+            break;
+        case 9:
+            MenuCadastroLocal();
+            break;
+        case 10:
+            MenuCadastroAlojamento();
             break;
         case 0:
             FecharPrograma();
