@@ -569,6 +569,100 @@ struct ATLETA
     Medalha medalhas[TAM];
 } Atletas[TAM];
 
+FILE *arquivoAtletas;
+
+void MostrarMenuCadastroAtletas()
+{
+    MostrarTitulo("                        Cadastro de atletas                        ");
+    arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "r");
+
+    int encontrado = 1;
+    int i = 0;
+
+    printf("Atletas:\n");
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Atletas[i], sizeof(ATLETA), 1, arquivoAtletas);
+
+        if (encontrado == 0)
+        {
+            if (i == 0)
+                printf("**Sem atletas cadastrados**");
+
+            break;
+        }
+        else
+        {
+            printf("%d - ", i + 1);
+            printf(Atletas[i].nome);
+            printf(Atletas[i].pais.nome);
+            PularLinha();
+            i++;
+            continue;
+        }
+    }
+
+    LinhaDivisoria();
+    PularLinha();
+    printf("1 - Cadastrar\n");
+    printf("2 - Editar\n");
+    printf("3 - Voltar\n");
+    printf("0 - Sair\n");
+}
+
+void CadastrarAtleta()
+{
+    arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "a");
+
+    printf(" Digite o nome do atleta: ");
+    gets(Atletas[0].nome);
+    printf(" Digite a idade do atleta: ");
+    scanf("%d", Atletas[0].idade);
+
+    int retorno = fwrite(&Atletas[0], sizeof(ATLETA), 1, arquivoAtletas);
+
+    printf("retorno");
+    printf("%d", retorno);
+    if (retorno == 1)
+    {
+        printf("\n Gravacao ok! ");
+        getch();
+        LimparTela();
+        fclose(arquivoAtletas);
+    }
+}
+
+void MenuCadastroAtletas()
+{
+    int resposta;
+    bool tentarNovamente = false;
+    
+    do
+    {
+        LimparTela();
+        MostrarMenuCadastroAtletas();
+        scanf("%d", &resposta);
+        switch (resposta)
+        {
+        case 1:
+            CadastrarAtleta();
+            break;
+        case 2:
+            printf("Editando usuário");
+            break;
+        case 3:
+            printf("Voltando");
+            break;
+        case 0:
+            FecharPrograma();
+            break;
+        default:
+            printf("Opção inválida, tente novamente");
+            break;
+        }
+    } while (tentarNovamente);
+}
+
 // FUNCIONARIO
 struct Funcionario
 {
