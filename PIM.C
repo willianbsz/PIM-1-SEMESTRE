@@ -103,7 +103,7 @@ void CadastrarModalidade()
     ArquivoModalidade = AbrirTxt(ArquivoModalidade, NomeArquivoModalidade, "a");
 
     printf(" Digite o nome da modalidade: ");
-    gets(Modalidades[0].nome);
+    scanf("%s", Modalidades[0].nome);
 
     int retorno = fwrite(&Modalidades[0], sizeof(Modalidade), 1, ArquivoModalidade);
 
@@ -200,12 +200,10 @@ void CadastrarPaises()
     ArquivoPais = AbrirTxt(ArquivoPais, NomeArquivoPais, "a");
 
     printf(" Digite o nome do Pais: ");
-    gets(Paises[0].nome);
+    scanf("%s", Paises[0].nome);
 
     int retorno = fwrite(&Paises[0], sizeof(Pais), 1, ArquivoPais);
 
-    printf("retorno");
-    printf("%d", retorno);
     if (retorno == 1)
     {
         printf("\n Gravacao ok! ");
@@ -297,7 +295,7 @@ void CadastrarEquipes()
     ArquivoEquipe = AbrirTxt(ArquivoEquipe, NomeArquivoEquipe, "a");
 
     printf(" Digite o nome da equipe: ");
-    gets(Paises[0].nome);
+    scanf("%s", Paises[0].nome);
 
     int retorno = fwrite(&Equipes[0], sizeof(Equipe), 1, ArquivoEquipe);
 
@@ -396,7 +394,7 @@ void CadastrarLocais()
     ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "a");
 
     printf(" Digite o nome do Local: ");
-    gets(Locais[0].rua);
+    scanf("%s", Locais[0].rua);
     PularLinha();
 
     printf(" Digite o numero do Local: ");
@@ -498,7 +496,7 @@ void CadastrarAlojamento()
     ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "a");
 
     printf(" Digite o nome d]o Alojamento: ");
-    gets(Alojamentos[0].nome);
+    scanf("%s", Alojamentos[0].nome);
 
     int retorno = fwrite(&Alojamentos[0], sizeof(Alojamento), 1, ArquivoAlojamento);
 
@@ -615,10 +613,11 @@ void CadastrarAtleta()
     arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "a");
 
     printf(" Digite o nome do atleta: ");
-    gets(Atletas[0].nome);
+    scanf("%s", Atletas[0].nome);
     printf(" Digite a idade do atleta: ");
     scanf("%d", Atletas[0].idade);
 
+    printf("Cadastrado");
     int retorno = fwrite(&Atletas[0], sizeof(ATLETA), 1, arquivoAtletas);
 
     printf("retorno");
@@ -636,7 +635,7 @@ void MenuCadastroAtletas()
 {
     int resposta;
     bool tentarNovamente = false;
-    
+
     do
     {
         LimparTela();
@@ -736,9 +735,9 @@ void CadastrarUsuario()
     loginFile = AbrirTxt(loginFile, "login.txt", "a");
 
     printf(" Digite o nome de usuario: ");
-    gets(usuarios[0].usuario);
+    scanf("%s", usuarios[0].usuario);
     printf(" Digite a senha: ");
-    gets(usuarios[0].senha);
+    scanf("%s", usuarios[0].senha);
 
     int retorno = fwrite(&usuarios[0], sizeof(ModeloDeLogin), 1, loginFile);
 
@@ -854,9 +853,9 @@ void MenuCadastros()
         switch (resposta)
         {
         case 1:
+            MenuCadastroAtletas();
             break;
         case 2:
-            // CadastrarAtleta();
             break;
         case 5:
             MenuCadastroUsuarios();
@@ -911,12 +910,7 @@ void MenuPrincipal()
             MenuCadastros();
             break;
         case 2:
-            // CadastrarEquipeMedica
-            break;
-        case 3:
-            // CadastrarFuncionarios
-        case 4:
-            // CadastrarVoluntarios
+            //Relatorios
             break;
         default:
             printf("Opção inválida, tente novamente");
