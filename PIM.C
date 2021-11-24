@@ -725,34 +725,35 @@ void CadastrarAtleta()
 {
     arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "a");
     int resposta;
-    printf(" Digite o nome do atleta: ");
+    printf("Digite o nome do atleta: ");
     scanf("%s", Atletas[0].nome);
 
-    printf(" Digite a idade do atleta: ");
+    printf("Digite a idade do atleta: ");
     scanf("%s", Atletas[0].idade);
 
-    printf("Selecione um pais: ");
+    LimparTela();
+    printf("Selecione o pais do atleta: ");
     PularLinha();
-    MostrarPaises();
-    PularLinha();
+    MostrarPaises();    
     scanf("%d", &resposta);
     Atletas[0].pais = PegarUmPais(resposta - 1);
 
-    printf("Selecione um alojamento: ");
+    LimparTela();
+    printf("Selecione o alojamento do atleta: ");
     PularLinha();
-    MostrarAlojamentos();
-    PularLinha();
+    MostrarAlojamentos();    
     scanf("%d", &resposta);
     Atletas[0].alojamento = PegarUmaAlojamento(resposta - 1);
 
-    printf("Selecione uma equipe ");
+    LimparTela();
+    printf("Selecione a equipe do atleta: ");
     PularLinha();
-    MostrarEquipes();
-    PularLinha();
+    MostrarEquipes();    
     scanf("%d", &resposta);
     Atletas[0].equipe = PegarUmaEquipe(resposta - 1);
 
-    printf("Selecione uma modalidade ");
+    LimparTela();
+    printf("Selecione a modalidade em que o atleta concorre: ");
     PularLinha();
     MostrarModalidades();
     PularLinha();
