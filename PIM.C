@@ -559,7 +559,7 @@ struct Medalha
 struct ATLETA
 {
     char nome[NOMETAM];
-    int idade;
+    char idade[2];
     Modalidade modalidade;
     Pais pais;
     Equipe equipe;
@@ -615,13 +615,11 @@ void CadastrarAtleta()
     printf(" Digite o nome do atleta: ");
     scanf("%s", Atletas[0].nome);
     printf(" Digite a idade do atleta: ");
-    scanf("%d", Atletas[0].idade);
+    scanf("%s", Atletas[0].idade);
 
     printf("Cadastrado");
     int retorno = fwrite(&Atletas[0], sizeof(ATLETA), 1, arquivoAtletas);
-
-    printf("retorno");
-    printf("%d", retorno);
+    
     if (retorno == 1)
     {
         printf("\n Gravacao ok! ");
