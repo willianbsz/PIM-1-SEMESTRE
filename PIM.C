@@ -61,15 +61,32 @@ struct Modalidade
 FILE *ArquivoModalidade;
 
 const char NomeArquivoModalidade[] = "modalidades.txt";
-void MostrarMenuCadastroModalidade()
+
+Modalidade PegarUmaModalidade(int index)
 {
-    MostrarTitulo("                        Cadastro de modalidade                        ");
+    ArquivoModalidade = AbrirTxt(ArquivoModalidade, NomeArquivoModalidade, "r");
+
+    int encontrado = 1;
+
+    encontrado = fread(&Modalidades[index], sizeof(Modalidade), 1, ArquivoModalidade);
+
+    if (encontrado == 0)
+    {
+        printf("**Não foi possível encontrar essa modalidade**");
+        getch();
+        FecharPrograma();
+    }
+
+    return Modalidades[index];
+}
+
+void MostrarModalidades()
+{
     ArquivoModalidade = AbrirTxt(ArquivoModalidade, NomeArquivoModalidade, "r");
 
     int encontrado = 1;
     int i = 0;
 
-    printf("Modalidades:\n");
     while (encontrado == 1)
     {
         encontrado = fread(&Modalidades[i], sizeof(Modalidade), 1, ArquivoModalidade);
@@ -90,7 +107,12 @@ void MostrarMenuCadastroModalidade()
             continue;
         }
     }
-
+}
+void MostrarMenuCadastroModalidade()
+{
+    MostrarTitulo("                        Cadastro de modalidade                        ");
+    printf("Modalidades:\n");
+    MostrarModalidades();
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
@@ -158,15 +180,32 @@ struct Pais
 FILE *ArquivoPais;
 
 const char NomeArquivoPais[] = "paises.txt";
-void MostrarMenuCadastroPais()
+
+Pais PegarUmPais(int index)
 {
-    MostrarTitulo("                        Cadastro de Pais                        ");
+    ArquivoPais = AbrirTxt(ArquivoPais, NomeArquivoPais, "r");
+
+    int encontrado = 1;
+
+    encontrado = fread(&Paises[index], sizeof(Pais), 1, ArquivoPais);
+
+    if (encontrado == 0)
+    {
+        printf("**Não foi possível encontrar esse país**");
+        getch();
+        FecharPrograma();
+    }
+
+    return Paises[index];
+}
+
+void MostrarPaises()
+{
     ArquivoPais = AbrirTxt(ArquivoPais, NomeArquivoPais, "r");
 
     int encontrado = 1;
     int i = 0;
 
-    printf("Paises:\n");
     while (encontrado == 1)
     {
         encontrado = fread(&Paises[i], sizeof(Pais), 1, ArquivoPais);
@@ -187,7 +226,13 @@ void MostrarMenuCadastroPais()
             continue;
         }
     }
+}
 
+void MostrarMenuCadastroPais()
+{
+    MostrarTitulo("                        Cadastro de Pais                        ");
+    printf("Paises:\n");
+    MostrarPaises();
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
@@ -251,17 +296,33 @@ struct Equipe
 } Equipes[TAM];
 
 FILE *ArquivoEquipe;
-
 const char NomeArquivoEquipe[] = "equipe.txt";
-void MostrarMenuCadastroEquipe()
+
+Equipe PegarUmaEquipe(int index)
 {
-    MostrarTitulo("                        Cadastro de equipes                        ");
+    ArquivoEquipe = AbrirTxt(ArquivoEquipe, NomeArquivoEquipe, "r");
+
+    int encontrado = 1;
+
+    encontrado = fread(&Equipes[index], sizeof(Equipe), 1, ArquivoEquipe);
+
+    if (encontrado == 0)
+    {
+        printf("**Não foi possível encontrar essa Equipe**");
+        getch();
+        FecharPrograma();
+    }
+
+    return Equipes[index];
+}
+
+void MostrarEquipes()
+{
     ArquivoEquipe = AbrirTxt(ArquivoEquipe, NomeArquivoEquipe, "r");
 
     int encontrado = 1;
     int i = 0;
 
-    printf("Equipes:\n");
     while (encontrado == 1)
     {
         encontrado = fread(&Equipes[i], sizeof(Equipe), 1, ArquivoEquipe);
@@ -282,7 +343,12 @@ void MostrarMenuCadastroEquipe()
             continue;
         }
     }
-
+}
+void MostrarMenuCadastroEquipe()
+{
+    MostrarTitulo("                        Cadastro de equipes                        ");
+    printf("Equipes:\n");
+    MostrarEquipes();
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
@@ -351,15 +417,31 @@ struct Local
 FILE *ArquivoLocal;
 
 const char NomeArquivoLocal[] = "local.txt";
-void MostrarMenuCadastroLocal()
+Local PegarUmaLocal(int index)
 {
-    MostrarTitulo("                        Cadastro de locais                        ");
+    ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "r");
+
+    int encontrado = 1;
+
+    encontrado = fread(&Locais[index], sizeof(Local), 1, ArquivoLocal);
+
+    if (encontrado == 0)
+    {
+        printf("**Não foi possível encontrar essa Local**");
+        getch();
+        FecharPrograma();
+    }
+
+    return Locais[index];
+}
+
+void MostrarLocais()
+{
     ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "r");
 
     int encontrado = 1;
     int i = 0;
 
-    printf("Locais:\n");
     while (encontrado == 1)
     {
         encontrado = fread(&Locais[i], sizeof(Local), 1, ArquivoLocal);
@@ -381,7 +463,12 @@ void MostrarMenuCadastroLocal()
             continue;
         }
     }
-
+}
+void MostrarMenuCadastroLocal()
+{
+    MostrarTitulo("                        Cadastro de locais                        ");
+    printf("Locais:\n");
+    MostrarLocais();
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
@@ -454,15 +541,32 @@ struct Alojamento
 FILE *ArquivoAlojamento;
 
 const char NomeArquivoAlojamento[] = "alojamento.txt";
-void MostrarMenuCadastroAlojamento()
+
+Alojamento PegarUmaAlojamento(int index)
 {
-    MostrarTitulo("                        Cadastro de Alojamento                        ");
+    ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "r");
+
+    int encontrado = 1;
+
+    encontrado = fread(&Alojamentos[index], sizeof(Alojamento), 1, ArquivoAlojamento);
+
+    if (encontrado == 0)
+    {
+        printf("**Não foi possível encontrar essa Alojamento**");
+        getch();
+        FecharPrograma();
+    }
+
+    return Alojamentos[index];
+}
+
+void MostrarAlojamentos()
+{
     ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "r");
 
     int encontrado = 1;
     int i = 0;
 
-    printf("Alojamentos:\n");
     while (encontrado == 1)
     {
         encontrado = fread(&Alojamentos[i], sizeof(Alojamento), 1, ArquivoAlojamento);
@@ -483,7 +587,12 @@ void MostrarMenuCadastroAlojamento()
             continue;
         }
     }
-
+}
+void MostrarMenuCadastroAlojamento()
+{
+    MostrarTitulo("                        Cadastro de Alojamento                        ");
+    printf("Alojamentos:\n");
+    MostrarAlojamentos();
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
@@ -569,15 +678,13 @@ struct ATLETA
 
 FILE *arquivoAtletas;
 
-void MostrarMenuCadastroAtletas()
+void MostrarAtletas()
 {
-    MostrarTitulo("                        Cadastro de atletas                        ");
     arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "r");
 
     int encontrado = 1;
     int i = 0;
 
-    printf("Atletas:\n");
     while (encontrado == 1)
     {
         encontrado = fread(&Atletas[i], sizeof(ATLETA), 1, arquivoAtletas);
@@ -593,13 +700,19 @@ void MostrarMenuCadastroAtletas()
         {
             printf("%d - ", i + 1);
             printf(Atletas[i].nome);
+            printf(" - ");
             printf(Atletas[i].pais.nome);
             PularLinha();
             i++;
             continue;
         }
     }
-
+}
+void MostrarMenuCadastroAtletas()
+{
+    MostrarTitulo("                        Cadastro de atletas                        ");
+    printf("Atletas:\n");
+    MostrarAtletas();
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
@@ -611,15 +724,43 @@ void MostrarMenuCadastroAtletas()
 void CadastrarAtleta()
 {
     arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "a");
-
+    int resposta;
     printf(" Digite o nome do atleta: ");
     scanf("%s", Atletas[0].nome);
+
     printf(" Digite a idade do atleta: ");
     scanf("%s", Atletas[0].idade);
 
-    printf("Cadastrado");
+    printf("Selecione um pais: ");
+    PularLinha();
+    MostrarPaises();
+    PularLinha();
+    scanf("%d", &resposta);
+    Atletas[0].pais = PegarUmPais(resposta - 1);
+
+    printf("Selecione um alojamento: ");
+    PularLinha();
+    MostrarAlojamentos();
+    PularLinha();
+    scanf("%d", &resposta);
+    Atletas[0].alojamento = PegarUmaAlojamento(resposta - 1);
+
+    printf("Selecione uma equipe ");
+    PularLinha();
+    MostrarEquipes();
+    PularLinha();
+    scanf("%d", &resposta);
+    Atletas[0].equipe = PegarUmaEquipe(resposta - 1);
+
+    printf("Selecione uma modalidade ");
+    PularLinha();
+    MostrarModalidades();
+    PularLinha();
+    scanf("%d", &resposta);
+    Atletas[0].modalidade = PegarUmaModalidade(resposta - 1);
+
     int retorno = fwrite(&Atletas[0], sizeof(ATLETA), 1, arquivoAtletas);
-    
+
     if (retorno == 1)
     {
         printf("\n Gravacao ok! ");
