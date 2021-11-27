@@ -4,10 +4,13 @@
 #include <conio.h>
 #include <ctype.h>
 #include <string.h>
+#include <time.h>
 #define TAM 100
 #define NOMETAM 100
 
 //==UTILS==
+int contador = 1;
+
 void LimparTela()
 {
     system("cls");
@@ -28,7 +31,7 @@ void FecharPrograma()
     LimparTela();
     printf("Ok, até a próxima!!!");
     getch();
-    system("exit");
+    exit(0);
 }
 
 void MostrarTitulo(const char titulo[TAM])
@@ -67,17 +70,18 @@ Modalidade PegarUmaModalidade(int index)
     ArquivoModalidade = AbrirTxt(ArquivoModalidade, NomeArquivoModalidade, "r");
 
     int encontrado = 1;
+    int i = 0;
 
-    encontrado = fread(&Modalidades[index], sizeof(Modalidade), 1, ArquivoModalidade);
-
-    if (encontrado == 0)
+    while (encontrado == 1)
     {
-        printf("**Não foi possível encontrar essa modalidade**");
-        getch();
-        FecharPrograma();
-    }
+        encontrado = fread(&Modalidades[i], sizeof(Modalidade), 1, ArquivoModalidade);
 
-    return Modalidades[index];
+        if (index == i)
+        {
+            return Modalidades[index];
+        }
+        i++;
+    }
 }
 
 void MostrarModalidades()
@@ -116,12 +120,11 @@ void MostrarMenuCadastroModalidade()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
 void CadastrarModalidade()
 {
+    LimparTela();
     ArquivoModalidade = AbrirTxt(ArquivoModalidade, NomeArquivoModalidade, "a");
 
     printf(" Digite o nome da modalidade: ");
@@ -129,11 +132,9 @@ void CadastrarModalidade()
 
     int retorno = fwrite(&Modalidades[0], sizeof(Modalidade), 1, ArquivoModalidade);
 
-    printf("retorno");
-    printf("%d", retorno);
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(ArquivoModalidade);
@@ -147,6 +148,7 @@ void MenuCadastroModalidade()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastroModalidade();
         scanf("%d", &resposta);
@@ -154,15 +156,9 @@ void MenuCadastroModalidade()
         {
         case 1:
             CadastrarModalidade();
-            break;
-        case 2:
-            printf("Editando modalidade");
-            break;
-        case 3:
-            printf("Voltando");
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -186,17 +182,18 @@ Pais PegarUmPais(int index)
     ArquivoPais = AbrirTxt(ArquivoPais, NomeArquivoPais, "r");
 
     int encontrado = 1;
+    int i = 0;
 
-    encontrado = fread(&Paises[index], sizeof(Pais), 1, ArquivoPais);
-
-    if (encontrado == 0)
+    while (encontrado == 1)
     {
-        printf("**Não foi possível encontrar esse país**");
-        getch();
-        FecharPrograma();
-    }
+        encontrado = fread(&Paises[index], sizeof(Pais), 1, ArquivoPais);
 
-    return Paises[index];
+        if (index == i)
+        {
+            return Paises[index];
+        }
+        i++;
+    }
 }
 
 void MostrarPaises()
@@ -236,12 +233,11 @@ void MostrarMenuCadastroPais()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
 void CadastrarPaises()
 {
+    LimparTela();
     ArquivoPais = AbrirTxt(ArquivoPais, NomeArquivoPais, "a");
 
     printf(" Digite o nome do Pais: ");
@@ -251,7 +247,7 @@ void CadastrarPaises()
 
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(ArquivoPais);
@@ -265,6 +261,7 @@ void MenuCadastroPais()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastroPais();
         scanf("%d", &resposta);
@@ -272,15 +269,9 @@ void MenuCadastroPais()
         {
         case 1:
             CadastrarPaises();
-            break;
-        case 2:
-            printf("Editando pais");
-            break;
-        case 3:
-            printf("Voltando");
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -303,17 +294,18 @@ Equipe PegarUmaEquipe(int index)
     ArquivoEquipe = AbrirTxt(ArquivoEquipe, NomeArquivoEquipe, "r");
 
     int encontrado = 1;
+    int i = 0;
 
-    encontrado = fread(&Equipes[index], sizeof(Equipe), 1, ArquivoEquipe);
-
-    if (encontrado == 0)
+    while (encontrado == 1)
     {
-        printf("**Não foi possível encontrar essa Equipe**");
-        getch();
-        FecharPrograma();
-    }
+        encontrado = fread(&Equipes[index], sizeof(Equipe), 1, ArquivoEquipe);
 
-    return Equipes[index];
+        if (index == i)
+        {
+            return Equipes[index];
+        }
+        i++;
+    }
 }
 
 void MostrarEquipes()
@@ -352,12 +344,11 @@ void MostrarMenuCadastroEquipe()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
 void CadastrarEquipes()
 {
+    LimparTela();
     ArquivoEquipe = AbrirTxt(ArquivoEquipe, NomeArquivoEquipe, "a");
 
     printf(" Digite o nome da equipe: ");
@@ -365,11 +356,9 @@ void CadastrarEquipes()
 
     int retorno = fwrite(&Equipes[0], sizeof(Equipe), 1, ArquivoEquipe);
 
-    printf("retorno");
-    printf("%d", retorno);
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(ArquivoEquipe);
@@ -383,6 +372,7 @@ void MenuCadastroEquipe()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastroEquipe();
         scanf("%d", &resposta);
@@ -390,15 +380,9 @@ void MenuCadastroEquipe()
         {
         case 1:
             CadastrarEquipes();
-            break;
-        case 2:
-            printf("Editando equipes");
-            break;
-        case 3:
-            printf("Voltando");
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -422,17 +406,18 @@ Local PegarUmaLocal(int index)
     ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "r");
 
     int encontrado = 1;
+    int i = 0;
 
-    encontrado = fread(&Locais[index], sizeof(Local), 1, ArquivoLocal);
-
-    if (encontrado == 0)
+    while (encontrado == 1)
     {
-        printf("**Não foi possível encontrar essa Local**");
-        getch();
-        FecharPrograma();
-    }
+        encontrado = fread(&Locais[index], sizeof(Local), 1, ArquivoLocal);
 
-    return Locais[index];
+        if (index == i)
+        {
+            return Locais[index];
+        }
+        i++;
+    }
 }
 
 void MostrarLocais()
@@ -472,12 +457,11 @@ void MostrarMenuCadastroLocal()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
 void CadastrarLocais()
 {
+    LimparTela();
     ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "a");
 
     printf(" Digite o nome do Local: ");
@@ -489,11 +473,9 @@ void CadastrarLocais()
 
     int retorno = fwrite(&Locais[0], sizeof(Local), 1, ArquivoLocal);
 
-    printf("retorno");
-    printf("%d", retorno);
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(ArquivoLocal);
@@ -507,6 +489,7 @@ void MenuCadastroLocal()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastroLocal();
         scanf("%d", &resposta);
@@ -514,15 +497,9 @@ void MenuCadastroLocal()
         {
         case 1:
             CadastrarLocais();
-            break;
-        case 2:
-            printf("Editando Locais");
-            break;
-        case 3:
-            printf("Voltando");
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -547,19 +524,19 @@ Alojamento PegarUmaAlojamento(int index)
     ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "r");
 
     int encontrado = 1;
+    int i = 0;
 
-    encontrado = fread(&Alojamentos[index], sizeof(Alojamento), 1, ArquivoAlojamento);
-
-    if (encontrado == 0)
+    while (encontrado == 1)
     {
-        printf("**Não foi possível encontrar essa Alojamento**");
-        getch();
-        FecharPrograma();
+        encontrado = fread(&Alojamentos[index], sizeof(Alojamento), 1, ArquivoAlojamento);
+
+        if (index == i)
+        {
+            return Alojamentos[index];
+        }
+        i++;
     }
-
-    return Alojamentos[index];
 }
-
 void MostrarAlojamentos()
 {
     ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "r");
@@ -596,12 +573,12 @@ void MostrarMenuCadastroAlojamento()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
+
 void CadastrarAlojamento()
 {
+    LimparTela();
     ArquivoAlojamento = AbrirTxt(ArquivoAlojamento, NomeArquivoAlojamento, "a");
 
     printf(" Digite o nome d]o Alojamento: ");
@@ -609,11 +586,9 @@ void CadastrarAlojamento()
 
     int retorno = fwrite(&Alojamentos[0], sizeof(Alojamento), 1, ArquivoAlojamento);
 
-    printf("retorno");
-    printf("%d", retorno);
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(ArquivoAlojamento);
@@ -627,6 +602,7 @@ void MenuCadastroAlojamento()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastroAlojamento();
         scanf("%d", &resposta);
@@ -634,15 +610,9 @@ void MenuCadastroAlojamento()
         {
         case 1:
             CadastrarAlojamento();
-            break;
-        case 2:
-            printf("Editando modalidade");
-            break;
-        case 3:
-            printf("Voltando");
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -651,36 +621,43 @@ void MenuCadastroAlojamento()
     } while (tentarNovamente);
 }
 
-// MEDALHA
-enum TipoMedalha
-{
-    Ouro,
-    Prata,
-    Bronze
-};
-
-struct Medalha
-{
-    TipoMedalha tipo;
-};
-
 // ATLETAS
 struct ATLETA
 {
+    char id[4];
     char nome[NOMETAM];
     char idade[2];
     Modalidade modalidade;
     Pais pais;
     Equipe equipe;
     Alojamento alojamento;
-    Medalha medalhas[TAM];
 } Atletas[TAM];
 
 FILE *arquivoAtletas;
+char NomeArquivoAtleta[] = "atletas.txt";
+
+ATLETA PegarUmAtleta(int index)
+{
+    arquivoAtletas = AbrirTxt(arquivoAtletas, NomeArquivoAtleta, "r");
+
+    int encontrado = 1;
+    int i = 0;
+
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Atletas[i], sizeof(ATLETA), 1, arquivoAtletas);
+
+        if (index == i)
+        {
+            return Atletas[index];
+        }
+        i++;
+    }
+}
 
 void MostrarAtletas()
 {
-    arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "r");
+    arquivoAtletas = AbrirTxt(arquivoAtletas, NomeArquivoAtleta, "r");
 
     int encontrado = 1;
     int i = 0;
@@ -716,14 +693,13 @@ void MostrarMenuCadastroAtletas()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
 
 void CadastrarAtleta()
 {
-    arquivoAtletas = AbrirTxt(arquivoAtletas, "atletas.txt", "a");
+    LimparTela();
+    arquivoAtletas = AbrirTxt(arquivoAtletas, NomeArquivoAtleta, "a");
     int resposta;
     printf("Digite o nome do atleta: ");
     scanf("%s", Atletas[0].nome);
@@ -734,21 +710,21 @@ void CadastrarAtleta()
     LimparTela();
     printf("Selecione o pais do atleta: ");
     PularLinha();
-    MostrarPaises();    
+    MostrarPaises();
     scanf("%d", &resposta);
     Atletas[0].pais = PegarUmPais(resposta - 1);
 
     LimparTela();
     printf("Selecione o alojamento do atleta: ");
     PularLinha();
-    MostrarAlojamentos();    
+    MostrarAlojamentos();
     scanf("%d", &resposta);
     Atletas[0].alojamento = PegarUmaAlojamento(resposta - 1);
 
     LimparTela();
     printf("Selecione a equipe do atleta: ");
     PularLinha();
-    MostrarEquipes();    
+    MostrarEquipes();
     scanf("%d", &resposta);
     Atletas[0].equipe = PegarUmaEquipe(resposta - 1);
 
@@ -760,11 +736,17 @@ void CadastrarAtleta()
     scanf("%d", &resposta);
     Atletas[0].modalidade = PegarUmaModalidade(resposta - 1);
 
+    srand(time(NULL));
+    int id = rand() % 1000;
+    printf("Aleatorio");
+    printf("%d", id);
+    sprintf(Atletas[0].id, "%d", id);
+
     int retorno = fwrite(&Atletas[0], sizeof(ATLETA), 1, arquivoAtletas);
 
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(arquivoAtletas);
@@ -778,6 +760,7 @@ void MenuCadastroAtletas()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastroAtletas();
         scanf("%d", &resposta);
@@ -785,15 +768,9 @@ void MenuCadastroAtletas()
         {
         case 1:
             CadastrarAtleta();
-            break;
-        case 2:
-            printf("Editando usuário");
-            break;
-        case 3:
-            printf("Voltando");
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -802,17 +779,269 @@ void MenuCadastroAtletas()
     } while (tentarNovamente);
 }
 
-// FUNCIONARIO
-struct Funcionario
+// MEDALHA
+struct Medalha
 {
-    char nome[NOMETAM];
-} Funcionarios[TAM];
+    char tipo[7];
+    ATLETA atleta;
+} Medalhas[TAM];
 
-// VOLUNTARIO
-struct Voluntario
+FILE *ArquivoMedalha;
+
+const char NomeArquivoMedalha[] = "Medalha.txt";
+
+Medalha PegarUmaMedalha(int index)
 {
-    char nome[NOMETAM];
-} Voluntarios[TAM];
+    ArquivoMedalha = AbrirTxt(ArquivoMedalha, NomeArquivoMedalha, "r");
+
+    int encontrado = 1;
+    int i = 0;
+
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Medalhas[i], sizeof(ATLETA), 1, ArquivoMedalha);
+
+        if (index == i)
+        {
+            return Medalhas[index];
+        }
+        i++;
+    }
+}
+
+void MostrarMedalhasDoAtleta(ATLETA atleta, int index)
+{
+    ArquivoMedalha = AbrirTxt(ArquivoMedalha, NomeArquivoMedalha, "r");
+
+    int encontrado = 1;
+    int i = 0;
+    int ouro = 0;
+    int prata = 0;
+    int bronze = 0;
+
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Medalhas[i], sizeof(Medalha), 1, ArquivoMedalha);
+
+        if (encontrado == 0)
+            break;
+
+        if (strcmp(Medalhas[i].atleta.id, atleta.id) == 0)
+        {
+            if (strcmp(Medalhas[i].tipo, "Ouro") == 0)
+            {
+                ouro++;
+            }
+            if (strcmp(Medalhas[i].tipo, "Prata") == 0)
+            {
+                prata++;
+            }
+            if (strcmp(Medalhas[i].tipo, "Bronze") == 0)
+            {
+                bronze++;
+            }
+        }
+
+        i++;
+        continue;
+    }
+
+    PularLinha();
+    printf("%d - ", index + 1);
+    printf(atleta.nome);
+    printf(" %d", ouro);
+    printf(" %d", prata);
+    printf(" %d", bronze);
+}
+
+void MostrarMedalhasDoPais(Pais pais, int index)
+{
+    ArquivoMedalha = AbrirTxt(ArquivoMedalha, NomeArquivoMedalha, "r");
+
+    int encontrado = 1;
+    int i = 0;
+    int ouro = 0;
+    int prata = 0;
+    int bronze = 0;
+
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Medalhas[i], sizeof(Medalha), 1, ArquivoMedalha);
+
+        if (encontrado == 0)
+            break;
+
+        if (strcmp(Medalhas[i].atleta.pais.nome, pais.nome) == 0)
+        {
+            if (strcmp(Medalhas[i].tipo, "Ouro") == 0)
+            {
+                ouro++;
+            }
+            if (strcmp(Medalhas[i].tipo, "Prata") == 0)
+            {
+                prata++;
+            }
+            if (strcmp(Medalhas[i].tipo, "Bronze") == 0)
+            {
+                bronze++;
+            }
+        }
+
+        i++;
+        continue;
+    }
+
+    PularLinha();
+    printf("%d - ", index + 1);
+    printf(pais.nome);
+    printf(" %d", ouro);
+    printf(" %d", prata);
+    printf(" %d", bronze);
+}
+
+void MostrarMedalhas()
+{
+    arquivoAtletas = AbrirTxt(arquivoAtletas, NomeArquivoAtleta, "r");
+
+    int encontrado = 1;
+    int i = 0;
+    printf("NOME    -    OURO    -    PRATA    -    BRONZE\n");
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Atletas[i], sizeof(ATLETA), 1, arquivoAtletas);
+
+        if (encontrado == 0)
+        {
+            if (i == 0)
+                printf("**Sem atletas cadastrados**");
+
+            break;
+        }
+        else
+        {
+            MostrarMedalhasDoAtleta(Atletas[i], i);
+            i++;
+            continue;
+        }
+    }
+}
+
+void MostrarMedalhasPorPais()
+{
+    LimparTela();
+    ArquivoPais = AbrirTxt(ArquivoPais, NomeArquivoPais, "r");
+
+    int encontrado = 1;
+    int i = 0;
+    printf("NOME DO PAIS    -    OURO    -    PRATA    -    BRONZE\n");
+    while (encontrado == 1)
+    {
+        encontrado = fread(&Paises[i], sizeof(Pais), 1, ArquivoPais);
+
+        if (encontrado == 0)
+        {
+            if (i == 0)
+                printf("**Sem Paises cadastrados**");
+
+            break;
+        }
+        else
+        {
+            MostrarMedalhasDoPais(Paises[i], i);
+            i++;
+            continue;
+        }
+    }
+    getch();
+}
+
+void MostrarMenuCadastroMedalha()
+{
+    MostrarTitulo("                        Medalhas                        ");
+    MostrarMedalhas();
+    LinhaDivisoria();
+    PularLinha();
+    printf("1 - Adicionar medalha a atleta\n");
+    printf("2 - Mostrar medalhas por Pais\n");
+    printf("0 - Voltar\n");
+}
+
+void CadastrarMedalha()
+{
+    LimparTela();
+    ArquivoMedalha = AbrirTxt(ArquivoMedalha, NomeArquivoMedalha, "a");
+    int resposta;
+
+    printf("Selecione o tipo de medalha:\n");
+
+    printf("1 - Ouro\n");
+    printf("2 - Prata\n");
+    printf("3 - Bronze\n");
+    scanf("%d", &resposta);
+
+    switch (resposta)
+    {
+    case 1:
+        strcpy(Medalhas[0].tipo, "Ouro");
+        break;
+    case 2:
+        strcpy(Medalhas[0].tipo, "Prata");
+        break;
+    case 3:
+        strcpy(Medalhas[0].tipo, "Bronze");
+        break;
+    default:
+        break;
+    }
+
+    LimparTela();
+    printf("Selecione o atleta que receberá a medalha:\n");
+    MostrarAtletas();
+    int respostaAtleta;
+    scanf("%d", &respostaAtleta);
+    Medalhas[0].atleta = PegarUmAtleta(respostaAtleta - 1);
+
+    int retorno = fwrite(&Medalhas[0], sizeof(Medalha), 1, ArquivoMedalha);
+
+    if (retorno == 1)
+    {
+        printf("\nGravacao ok!");
+        getch();
+        LimparTela();
+        fclose(ArquivoMedalha);
+    }
+}
+
+void MenuCadastroMedalha()
+{
+    int resposta;
+    bool tentarNovamente = false;
+
+    do
+    {
+        bool tentarNovamente = true;
+        LimparTela();
+        MostrarMenuCadastroMedalha();
+        scanf("%d", &resposta);
+        switch (resposta)
+        {
+        case 1:
+            CadastrarMedalha();
+            tentarNovamente = true;
+            break;
+        case 2:
+            MostrarMedalhasPorPais();
+            tentarNovamente = true;
+            break;
+        case 0:
+            break;
+        default:
+            printf("Opção inválida, tente novamente");
+            tentarNovamente = true;
+            break;
+        }
+    } while (tentarNovamente);
+}
 
 //==LOGIN==
 struct ModeloDeLogin
@@ -825,6 +1054,7 @@ FILE *loginFile;
 
 ModeloDeLogin MostrarFormularioLogin(ModeloDeLogin login)
 {
+    LimparTela();
     printf("Digite o seu usuario: \n");
     scanf("%s", login.usuario);
 
@@ -872,6 +1102,7 @@ bool Login()
 
 void CadastrarUsuario()
 {
+    LimparTela();
     loginFile = AbrirTxt(loginFile, "login.txt", "a");
 
     printf(" Digite o nome de usuario: ");
@@ -881,11 +1112,9 @@ void CadastrarUsuario()
 
     int retorno = fwrite(&usuarios[0], sizeof(ModeloDeLogin), 1, loginFile);
 
-    printf("retorno");
-    printf("%d", retorno);
     if (retorno == 1)
     {
-        printf("\n Gravacao ok! ");
+        printf("\nGravacao ok! ");
         getch();
         LimparTela();
         fclose(loginFile);
@@ -925,9 +1154,7 @@ void MostrarMenuCadastroUsuarios()
     LinhaDivisoria();
     PularLinha();
     printf("1 - Cadastrar\n");
-    printf("2 - Editar\n");
-    printf("3 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("0 - Voltar\n");
 }
 
 void MenuCadastroUsuarios()
@@ -945,14 +1172,7 @@ void MenuCadastroUsuarios()
         case 1:
             CadastrarUsuario();
             break;
-        case 2:
-            printf("Editando usuário");
-            break;
-        case 3:
-            printf("Voltando");
-            break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -967,17 +1187,13 @@ void MostrarMenuCadastros()
     LimparTela();
     MostrarTitulo("                        Menu de cadastros                      ");
     printf("1 - Cadastrar atleta\n");
-    printf("2 - Cadastrar equipe medica\n");
-    printf("3 - Cadastrar funcionarios\n");
-    printf("4 - Cadastrar voluntarios\n");
-    printf("5 - Usuários do sistema\n");
-    printf("6 - Cadastro de modalidade\n");
-    printf("7 - Cadastro de paises\n");
-    printf("8 - Cadastrar equipe\n");
-    printf("9 - Cadastrar local\n");
-    printf("10 - Cadastrar alojamento\n");
-    printf("12 - Voltar\n");
-    printf("0 - Sair\n");
+    printf("2 - Usuários do sistema\n");
+    printf("3 - Cadastro de modalidade\n");
+    printf("4 - Cadastro de paises\n");
+    printf("5 - Cadastrar equipe\n");
+    printf("6 - Cadastrar local\n");
+    printf("7 - Cadastrar alojamento\n");
+    printf("0 - Voltar\n");
 }
 
 void MenuCadastros()
@@ -987,6 +1203,7 @@ void MenuCadastros()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuCadastros();
         scanf("%d", &resposta);
@@ -994,33 +1211,37 @@ void MenuCadastros()
         {
         case 1:
             MenuCadastroAtletas();
+            tentarNovamente = true;
             break;
         case 2:
+            MenuCadastroUsuarios();
+            tentarNovamente = true;
+            break;
+        case 3:
+            MenuCadastroModalidade();
+            tentarNovamente = true;
+            break;
+        case 4:
+            MenuCadastroPais();
+            tentarNovamente = true;
             break;
         case 5:
-            MenuCadastroUsuarios();
+            MenuCadastroEquipe();
+            tentarNovamente = true;
             break;
         case 6:
-            MenuCadastroModalidade();
+            MenuCadastroLocal();
+            tentarNovamente = true;
             break;
         case 7:
-            MenuCadastroPais();
-            break;
-        case 8:
-            MenuCadastroEquipe();
-            break;
-        case 9:
-            MenuCadastroLocal();
-            break;
-        case 10:
             MenuCadastroAlojamento();
+            tentarNovamente = true;
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
-            printf("Opção inválida, tente novamente");
             break;
+            printf("Opção inválida, tente novamente");
         }
     } while (tentarNovamente);
 }
@@ -1030,7 +1251,7 @@ void MostrarMenuPrincipal()
 {
     printf("O que você deseja fazer?\n\n");
     printf("1 - Cadastros\n");
-    printf("2 - Relatórios\n");
+    printf("2 - Medalhas\n");
     printf("0 - Sair\n");
 }
 
@@ -1041,6 +1262,7 @@ void MenuPrincipal()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuPrincipal();
         scanf("%d", &resposta);
@@ -1048,9 +1270,13 @@ void MenuPrincipal()
         {
         case 1:
             MenuCadastros();
+            tentarNovamente = true;
             break;
         case 2:
-            //Relatorios
+            MenuCadastroMedalha();
+            tentarNovamente = true;
+            break;
+        case 0:
             break;
         default:
             printf("Opção inválida, tente novamente");
@@ -1078,6 +1304,7 @@ void MenuInicial()
 
     do
     {
+        tentarNovamente = false;
         LimparTela();
         MostrarMenuInicial();
         scanf("%d", &resposta);
@@ -1096,7 +1323,6 @@ void MenuInicial()
             CadastrarUsuario();
             break;
         case 0:
-            FecharPrograma();
             break;
         default:
             printf("Opção inválida, tente novamente");
