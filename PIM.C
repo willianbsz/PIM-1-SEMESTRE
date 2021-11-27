@@ -1337,3 +1337,5 @@ int main()
     MenuInicial();
     return 0;
 }
+
+//Em futuras versões pretendemos ter também o calendário olimpico, que por ora não foi implementado.
