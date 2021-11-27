@@ -788,7 +788,7 @@ struct Medalha
 
 FILE *ArquivoMedalha;
 
-const char NomeArquivoMedalha[] = "Medalha.txt";
+const char NomeArquivoMedalha[] = "medalhas.txt";
 
 Medalha PegarUmaMedalha(int index)
 {
