@@ -287,7 +287,7 @@ struct Equipe
 } Equipes[TAM];
 
 FILE *ArquivoEquipe;
-const char NomeArquivoEquipe[] = "equipe.txt";
+const char NomeArquivoEquipe[] = "equipes.txt";
 
 Equipe PegarUmaEquipe(int index)
 {
@@ -400,7 +400,7 @@ struct Local
 
 FILE *ArquivoLocal;
 
-const char NomeArquivoLocal[] = "local.txt";
+const char NomeArquivoLocal[] = "locais.txt";
 Local PegarUmaLocal(int index)
 {
     ArquivoLocal = AbrirTxt(ArquivoLocal, NomeArquivoLocal, "r");
@@ -517,7 +517,7 @@ struct Alojamento
 
 FILE *ArquivoAlojamento;
 
-const char NomeArquivoAlojamento[] = "alojamento.txt";
+const char NomeArquivoAlojamento[] = "alojamentos.txt";
 
 Alojamento PegarUmaAlojamento(int index)
 {
