@@ -45,12 +45,12 @@ void MostrarTitulo(const char titulo[TAM])
 // ARQUIVO
 FILE *AbrirTxt(FILE *arq, const char *nomeDoArquivo, const char *acao)
 {
-    arq = fopen(nomeDoArquivo, acao); // fopen cria arquivo de entrada
+    arq = fopen(nomeDoArquivo, acao);
     if (arq == NULL)
-    {                                                                // caso o sistema não consiga criar o arquivo
-        printf("Erro!\n O arquivo da lista não pode ser aberto!\n"); // sera mostrada esta mensagen
-        getch();                                                     // espera que o usuário pressione uma tecla
-        exit(1);                                                     // caso esse erro ocorra este comando encerra o programa
+    {
+        printf("Erro!\n O arquivo da lista não pode ser aberto!\n");
+        getch();
+        exit(1);
     }
     return arq;
 }
